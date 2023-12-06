@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"log"
-	"math"
 	"strings"
 )
 
@@ -15,19 +14,15 @@ func main() {
 	if a, err := NewAlmanac(chunks); err != nil {
 		log.Fatal(err)
 	} else {
-		min := math.MaxInt
-		for _, seed := range a.Seeds {
-			if loc := a.LocationNumber(seed); loc < min {
-				min = loc
-			}
+		if m, err := a.MinLocationNumber(1); err != nil {
+			log.Fatal(err)
+		} else {
+			log.Println("Part One:", m)
 		}
-		log.Println("Part One:", min)
-		min = math.MaxInt
-		for _, seed := range a.SeedsFlattened() {
-			if loc := a.LocationNumber(seed); loc < min {
-				min = loc
-			}
+		if m, err := a.MinLocationNumber(2); err != nil {
+			log.Fatal(err)
+		} else {
+			log.Println("Part Two:", m)
 		}
-		log.Println("Part Two:", min)
 	}
 }

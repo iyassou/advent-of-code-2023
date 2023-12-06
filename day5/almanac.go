@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -57,18 +58,26 @@ func (a *Almanac) LocationNumber(seed int) int {
 	return seed
 }
 
-func (a *Almanac) SeedsFlattened() []int {
-	rangeSize := 0
-	for i := 1; i < len(a.Seeds); i += 2 {
-		rangeSize += a.Seeds[i]
+func (a *Almanac) MinLocationNumber(part int) (int, error) {
+	if part != 1 && part != 2 {
+		return 0, fmt.Errorf("part must be 1 or 2, not %d", part)
 	}
-	r := make([]int, rangeSize)
-	k := 0
-	for i := 0; i < len(a.Seeds); i += 2 {
-		start, length := a.Seeds[i], a.Seeds[i+1]
-		for j := start; j < start+length; j, k = j+1, k+1 {
-			r[k] = j
+	min := math.MaxInt
+	if part == 1 {
+		for _, seed := range a.Seeds {
+			if loc := a.LocationNumber(seed); loc < min {
+				min = loc
+			}
+		}
+	} else {
+		for i := 0; i < len(a.Seeds); i += 2 {
+			start, length := a.Seeds[i], a.Seeds[i+1]
+			for seed := start; seed < start+length; seed++ {
+				if loc := a.LocationNumber(seed); loc < min {
+					min = loc
+				}
+			}
 		}
 	}
-	return r
+	return min, nil
 }

@@ -94,23 +94,3 @@ func TestAlmanacLocationNumber(t *testing.T) {
 		}
 	}
 }
-
-func TestAlmanacSeedsFlattened(t *testing.T) {
-	as, err := sampleAlmanacs()
-	if err != nil {
-		t.Fatal(err)
-	}
-	expected := [][]int{
-		{79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67},
-	}
-	if len(as) != len(expected) {
-		t.Fatal("bruh")
-	}
-	for i, a := range as {
-		exp := expected[i]
-		actual := a.SeedsFlattened()
-		if !cmp.Equal(actual, exp) {
-			t.Fatalf("actual %v differs from expected %v", actual, exp)
-		}
-	}
-}

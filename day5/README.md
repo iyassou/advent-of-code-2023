@@ -21,3 +21,9 @@ Ok, before implementing a direct transform, let's preallocate an exactly-sized s
 Surely there has to be a way to reduce the numbers to check? I feel like that has to be a bigger bottleneck than evaluating a simple looking boolean function at most 10ish times per input. Then again given the input size being able to convert a number in one go instead of potentially 10ish should scale and speed the whole thing up considerably.
 
 I'm going to stop here, 3 minutes isn't great but it isn't the end of the world either.
+
+---
+
+Having slept more I realised I was being very silly, and why I wanted to store all the numbers I don't understand. Since it's been less than a day I decided to come back and correct my silly memory usage.
+
+Execution time is still 3 minutes, but without allocating 1.7 billion `int`s (ጎሽ፣ አንበሳ).
