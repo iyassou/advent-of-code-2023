@@ -26,10 +26,10 @@ jobs:
     steps:
     - id: extract-stars
       run: |
-        echo "stars=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".stars' ${{ needs.get_leaderboard.outputs.leaderboard }})" >> "$GITHUB_OUTPUT"
+        echo "stars=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".stars' <<< '${{ needs.get_leaderboard.outputs.leaderboard }}')" >> "$GITHUB_OUTPUT"
     - id: calculate-days-completed
       run: |
-        echo "days_completed=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".completion_day_level | map(select(has("1") and has("2"))) | length' ${{ needs.get_leaderboard.outputs.leaderboard }})" >> "$GITHUB_OUTPUT"
+        echo "days_completed=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".completion_day_level | map(select(has("1") and has("2"))) | length' <<< '${{ needs.get_leaderboard.outputs.leaderboard }}')" >> "$GITHUB_OUTPUT"
 
   update_readme:
     needs: extract_leaderboard_stats
