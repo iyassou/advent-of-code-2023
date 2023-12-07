@@ -16,7 +16,7 @@ jobs:
     steps:
       - id: curl-leaderboard
         run: |
-          echo "leaderboard=$(curl -s --cookie "session=${{ secrets.AOC_SESSION }}" ${{ AOC_LEADERBOARD }})" >> "$GITHUB_OUTPUT"
+          echo "leaderboard=$(curl -s --cookie "session=${{ secrets.AOC_SESSION }}" ${{ secrets.AOC_LEADERBOARD }})" >> "$GITHUB_OUTPUT"
 
   extract_leaderboard_stats:
     needs: get_leaderboard
@@ -28,10 +28,10 @@ jobs:
     steps:
     - id: extract-stars
       run: |
-        echo "stars=$(echo ${{ needs.get_leaderboard.outputs.leaderboard }} | jq '.members."${{ AOC_MEMBER_ID }}".stars')" >> "$GITHUB_OUTPUT"
+        echo "stars=$(echo ${{ needs.get_leaderboard.outputs.leaderboard }} | jq '.members."${{ secrets.AOC_MEMBER_ID }}".stars')" >> "$GITHUB_OUTPUT"
     - id: calculate-days-completed
       run: |
-        echo "days_completed=$(echo ${{ needs.get_leaderboard.outputs.leaderboard }} | jq '.members."${{ AOC_MEMBER_ID }}".completion_day_level | map(select(has("1") and has("2"))) | length')" >> "$GITHUB_OUTPUT"
+        echo "days_completed=$(echo ${{ needs.get_leaderboard.outputs.leaderboard }} | jq '.members."${{ secrets.AOC_MEMBER_ID }}".completion_day_level | map(select(has("1") and has("2"))) | length')" >> "$GITHUB_OUTPUT"
 
   update_readme:
     needs: extract_leaderboard_stats
