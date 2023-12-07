@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@main
       - name: "Update README.md first line with recent data"
         run: |
-          sed -i '1c# advent-of-code-2023 ![Days Completed](https://img.shields.io/badge/Days%20Completed-${{ needs.extract_leaderboard_stats.outputs.days_completed }}-brightgreen) ![AoC Stars](https://img.shields.io/badge/%E2%AD%90-${{ needs.extract_leaderboard_stats.stars }}-brightgreen) ![Made with Go](https://img.shields.io/badge/Made%20with-Go-%2300ADD8)' README.md
+          sed -i '1c# advent-of-code-2023 ![Days Completed](https://img.shields.io/badge/Days%20Completed-${{ needs.extract_leaderboard_stats.outputs.days_completed }}-brightgreen) ![AoC Stars](https://img.shields.io/badge/%E2%AD%90-${{ needs.extract_leaderboard_stats.outputs.stars }}-brightgreen) ![Made with Go](https://img.shields.io/badge/Made%20with-Go-%2300ADD8)' README.md
       - name: "Push changes"
         run: |
           git config user.name github-actions
