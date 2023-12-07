@@ -87,15 +87,22 @@ func NewCompetition(input string) (*Competition, error) {
 	return c, nil
 }
 
+func (c *Competition) ProductWaysOfWinning() int {
+	if len(c.Races) == 0 {
+		return -1
+	}
+	prod := 1
+	for _, r := range c.Races {
+		prod *= r.WaysOfBreakingTheRecord()
+	}
+	return prod
+}
+
 func main() {
 	if c, err := NewCompetition(input); err != nil {
 		log.Fatal(err)
 	} else {
-		prod := 1
-		for _, r := range c.Races {
-			prod *= r.WaysOfBreakingTheRecord()
-		}
-		fmt.Println("Part One:", prod)
+		fmt.Println("Part One:", c.ProductWaysOfWinning())
 	}
 	if r, err := NewRace(input); err != nil {
 		log.Fatal(err)
