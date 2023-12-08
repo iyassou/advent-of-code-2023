@@ -42,7 +42,7 @@ func TestGetHandType(t *testing.T) {
 	}
 	for i, h := range hands {
 		e := expected[i]
-		if a := getHandType(h); a != e {
+		if a := h.getHandType(); a != e {
 			t.Fatalf("expected %v for input %v, got %v instead", e, h, a)
 		}
 	}
@@ -59,7 +59,26 @@ func TestGetHandType(t *testing.T) {
 			t.Fatal(err)
 		}
 		e := expected[j]
-		if a := getHandType(h); a != e {
+		if a := h.getHandType(); a != e {
+			t.Fatalf("expected %v for input %v, got %v instead", e, h, a)
+		}
+	}
+}
+
+func TestGetHandTypeFunky(t *testing.T) {
+	hands, err := sampleHands()
+	if err != nil {
+		t.Fatal(err)
+	}
+	expected := []HandType{
+		OnePair, FourOfAKind, TwoPair, FourOfAKind, FourOfAKind,
+	}
+	if len(hands) != len(expected) {
+		t.Fatal("bruh")
+	}
+	for i, h := range hands {
+		e := expected[i]
+		if a := h.getHandTypeFunky(); a != e {
 			t.Fatalf("expected %v for input %v, got %v instead", e, h, a)
 		}
 	}

@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "embed"
+	"errors"
 	"log"
 	"sort"
 
@@ -11,7 +12,10 @@ import (
 //go:embed input.txt
 var input string
 
-func part1(input string) (int, error) {
+func solution(input string, part int) (int, error) {
+	if !(part == 1 || part == 2) {
+		return 0, errors.New("bruh")
+	}
 	lines := internal.Lines(input)
 	hands := make([]*Hand, len(lines))
 	for i, line := range internal.Lines(input) {
@@ -22,7 +26,7 @@ func part1(input string) (int, error) {
 		}
 	}
 	sort.Slice(hands, func(i, j int) bool {
-		return hands[j].BetterThan(hands[i])
+		return hands[j].BetterThan(hands[i], part)
 	})
 	winnings := 0
 	for i, h := range hands {
@@ -32,9 +36,14 @@ func part1(input string) (int, error) {
 }
 
 func main() {
-	if winnings, err := part1(input); err != nil {
+	if winnings, err := solution(input, 1); err != nil {
 		log.Fatal(err)
 	} else {
 		log.Println("Part One:", winnings)
+	}
+	if winnings, err := solution(input, 2); err != nil {
+		log.Fatal(err)
+	} else {
+		log.Println("Part Two:", winnings)
 	}
 }

@@ -1,11 +1,13 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestByteToCamelCard(t *testing.T) {
 	s := "23456789TJQKA"
 	expected := []CamelCard{
-		Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace,
+		Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Joker, Queen, King, Ace,
 	}
 	if len(s) != len(expected) {
 		t.Fatal("bruh")
@@ -25,6 +27,26 @@ func TestByteToCamelCard(t *testing.T) {
 		b := s[i]
 		if c, err := ByteToCamelCard(b); err == nil {
 			t.Fatalf("expected failure for input %v, succeeded with value %v instead", b, c)
+		}
+	}
+}
+
+func TestCardValue(t *testing.T) {
+	cards := []CamelCard{
+		Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Joker, Queen, King, Ace,
+	}
+	for i, c := range cards {
+		e := i + 2
+		a := c.Value(1)
+		if a != e {
+			t.Fatalf("expected value %d for card %v, got %d instead", e, c, a)
+		}
+		if c == Joker {
+			e = 1
+		}
+		a = c.Value(2)
+		if a != e {
+			t.Fatalf("expected value %d for card %v, got %d instead", e, c, a)
 		}
 	}
 }
