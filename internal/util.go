@@ -26,3 +26,23 @@ func Lines[T line](input T) []T {
 	}
 	return result
 }
+
+func ShortestRepeatingSubstring(input string) string {
+	if len(input) < 2 {
+		return input
+	}
+	runes := []rune(input)
+	j, shortest := 0, []rune{runes[0]}
+	for i, r := range runes {
+		if r == shortest[j] {
+			j = (j + 1) % len(shortest)
+		} else {
+			j = 0
+			shortest = runes[:i+1]
+		}
+	}
+	if j == 0 {
+		return string(shortest)
+	}
+	return input
+}
