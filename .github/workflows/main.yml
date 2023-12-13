@@ -23,7 +23,7 @@ jobs:
     outputs:
       stars: ${{ steps.extract-stars.outputs.stars }}
       days_completed: ${{ steps.calculate-days-completed.outputs.days_completed }}
-      days_attempted: $${{ steps.calculate-days-attempted.outputs.days_attempted }}
+      days_attempted: ${{ steps.calculate-days-attempted.outputs.days_attempted }}
     steps:
     - id: extract-stars
       run: |
@@ -33,7 +33,7 @@ jobs:
         echo "days_completed=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".completion_day_level | map(select(has("1") and has("2"))) | length' <<< '${{ needs.get_leaderboard.outputs.leaderboard }}')" >> "$GITHUB_OUTPUT"
     - id: calculate-days-attempted
       run: |
-        echo "days_attempted=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".completion_day_level | map(select(has("1") or has("2"))) | length' <<< '${{ needs.get_leaderboard.outputs.leaderboard }}')" >> "$GITHUB_OUTPUT"
+        echo "days_attempted=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".completion_day_level | length' <<< '${{ needs.get_leaderboard.outputs.leaderboard }}')" >> "$GITHUB_OUTPUT"
 
   update_readme:
     needs: extract_leaderboard_stats
