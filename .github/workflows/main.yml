@@ -23,6 +23,7 @@ jobs:
     outputs:
       stars: ${{ steps.extract-stars.outputs.stars }}
       days_completed: ${{ steps.calculate-days-completed.outputs.days_completed }}
+      days_attempted: $${{ steps.calculate-days-attempted.outputs.days_attempted }}
     steps:
     - id: extract-stars
       run: |
@@ -30,6 +31,9 @@ jobs:
     - id: calculate-days-completed
       run: |
         echo "days_completed=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".completion_day_level | map(select(has("1") and has("2"))) | length' <<< '${{ needs.get_leaderboard.outputs.leaderboard }}')" >> "$GITHUB_OUTPUT"
+    - id: calculate-days-attempted
+      run: |
+        echo "days_attempted=$(jq '.members."${{ secrets.AOC_MEMBER_ID }}".completion_day_level | map(select(has("1") or has("2"))) | length' <<< '${{ needs.get_leaderboard.outputs.leaderboard }}')" >> "$GITHUB_OUTPUT"
 
   update_readme:
     needs: extract_leaderboard_stats
@@ -39,11 +43,11 @@ jobs:
         uses: actions/checkout@main
       - name: "Update README.md first line with recent data"
         run: |
-          sed -i '1c# advent-of-code-2023 ![Days Completed](https://img.shields.io/badge/Days%20Completed-${{ needs.extract_leaderboard_stats.outputs.days_completed }}-brightgreen) ![AoC Stars](https://img.shields.io/badge/%E2%AD%90-${{ needs.extract_leaderboard_stats.outputs.stars }}-brightgreen) ![Made with Go](https://img.shields.io/badge/Made%20with-Go-%2300ADD8)' README.md
+          sed -i '1c# advent-of-code-2023 ![Days Attempted](https://img.shields.io/badge/Days%20Attempted-${{ needs.extract_leaderboard_stats.outputs.days_attempted }}-brightgreen) ![Days Completed](https://img.shields.io/badge/Days%20Completed-${{ needs.extract_leaderboard_stats.outputs.days_completed }}-brightgreen) ![AoC Stars](https://img.shields.io/badge/%E2%AD%90-${{ needs.extract_leaderboard_stats.outputs.stars }}-brightgreen) ![Made with Go](https://img.shields.io/badge/Made%20with-Go-%2300ADD8)' README.md
       - name: "Push changes"
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add README.md
-          git commit -m "Update AOC badges"
+          git commit -m "Update README badges"
           git push
