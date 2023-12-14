@@ -11,3 +11,7 @@ Using AdventOfCode as an opportunity to get better at Golang.
 `go run ./dayX <input>` for days 1 through 4.
 
 `go run ./dayX` for days 5 and above (when I learned about the `embed` package).
+
+## Highlights
+
+Day 11: _[Compressed Sparse Column matrix](https://en.wikipedia.org/wiki/Sparse_matrix)_ implementation, with run-length encoded column indices.
