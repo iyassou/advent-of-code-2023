@@ -1,4 +1,4 @@
-# advent-of-code-2023 ![Days Attempted](https://img.shields.io/badge/Days%20Attempted-13-brightgreen) ![Days Completed](https://img.shields.io/badge/Days%20Completed-9-brightgreen) ![AoC Stars](https://img.shields.io/badge/%E2%AD%90-22-brightgreen) ![Made with Go](https://img.shields.io/badge/Made%20with-Go-%2300ADD8)
+# advent-of-code-2023 ![Days Attempted](https://img.shields.io/badge/Days%20Attempted-14-brightgreen) ![Days Completed](https://img.shields.io/badge/Days%20Completed-9-brightgreen) ![AoC Stars](https://img.shields.io/badge/%E2%AD%90-23-brightgreen) ![Made with Go](https://img.shields.io/badge/Made%20with-Go-%2300ADD8)
 
 Using AdventOfCode as an opportunity to get better at Golang.
 
