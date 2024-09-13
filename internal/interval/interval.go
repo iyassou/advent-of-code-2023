@@ -32,8 +32,7 @@ func (i *Interval) Intersection(other *Interval) *Interval {
 		// no intersection
 		return nil
 	}
-	intersection, _ := NewInterval(x, y)
-	return intersection
+	return &Interval{x, y}
 }
 
 func (i *Interval) String() string {
