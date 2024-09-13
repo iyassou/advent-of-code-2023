@@ -46,6 +46,7 @@ jobs:
           sed -i '1c# advent-of-code-2023 ![Days Attempted](https://img.shields.io/badge/Days%20Attempted-${{ needs.extract_leaderboard_stats.outputs.days_attempted }}-brightgreen) ![Days Completed](https://img.shields.io/badge/Days%20Completed-${{ needs.extract_leaderboard_stats.outputs.days_completed }}-brightgreen) ![AoC Stars](https://img.shields.io/badge/%E2%AD%90-${{ needs.extract_leaderboard_stats.outputs.stars }}-brightgreen) ![Made with Go](https://img.shields.io/badge/Made%20with-Go-%2300ADD8)' README.md
       - name: "Push changes"
         run: |
+          git pull
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add README.md
