@@ -29,3 +29,35 @@ func FuzzShortestRepeatingSubstring(f *testing.F) {
 		}
 	})
 }
+
+func TestGCD(t *testing.T) {
+	testcases := [][3]int{
+		{20, 15, 5},
+		{15, 20, 5},
+		{31, 27, 1},
+	}
+	for _, tc := range testcases {
+		a, b, expected := tc[0], tc[1], tc[2]
+		if actual, err := GCD(a, b); err != nil {
+			t.Fatal(err)
+		} else if actual != expected {
+			t.Fatalf("expected GCD(%d, %d) = %d, got %d", a, b, expected, actual)
+		}
+	}
+}
+
+func TestLCM(t *testing.T) {
+	testcases := [][3]int{
+		{20, 15, 60},
+		{15, 20, 60},
+		{31, 27, 31 * 27},
+	}
+	for _, tc := range testcases {
+		a, b, expected := tc[0], tc[1], tc[2]
+		if actual, err := LCM(a, b); err != nil {
+			t.Fatal(err)
+		} else if actual != expected {
+			t.Fatalf("expected LCM(%d, %d) = %d, got %d", a, b, expected, actual)
+		}
+	}
+}
